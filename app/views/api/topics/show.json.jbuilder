@@ -1,0 +1,1 @@
+json.partial! @topic, partial: 'topic', as: :topic 

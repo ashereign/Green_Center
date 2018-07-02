@@ -16,8 +16,9 @@ namespace :api do
   get "/post_topics" => "post_topics#index"
   delete '/post_topics/:id' => 'post_topics#destroy'
 
+  post "/users" => "users#create"
 end  
 
-post "/users" => "users#create"
+
 
 end
