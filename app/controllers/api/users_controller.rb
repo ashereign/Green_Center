@@ -15,4 +15,28 @@ class Api::UsersController < ApplicationController
       render json: {errors: @user.errors.full_messages}, status: :unprocessable_entity
     end
   end
+
+  def show
+    user_id = current_user[:id]
+    @user = User.find_by(id: user_id)
+    render "show.json.jbuilder"
+  end
+
+  def update
+    user_id = params[:id]
+    @user = User.find_by(id: user_id)
+
+    @user.name = params[:name] || @post.name
+    @post.email = params[:email] || @post.email
+    @post.avatar = params[:avatar] || @post.avatar
+    @post.username = params[:username] || @post.username
+    @user.save
+    render "show.json.jbuilder"
+
+  def destroy
+   user_id = current_user[:id]
+   @user = User.find_by(id: user_id)
+   @user.destroy
+   render json: {message: "Account successfully destroyed"} 
+  end
 end

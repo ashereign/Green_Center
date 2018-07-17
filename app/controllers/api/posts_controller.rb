@@ -37,8 +37,8 @@ class Api::PostsController < ApplicationController
     @post.body = params[:body] || @post.body
     @post.main_picture = params[:main_picture] || @post.main_picture
     @post.link = params[:link] || @post.link
-  @post.save
-  render "show.json.jbuilder"
+    @post.save
+    render "show.json.jbuilder"
 
   end
 

@@ -1,4 +1,5 @@
 json.title post.title 
+json.id post.id
 json.body post.body
 json.user_id post.user_id
 json.main_picture post.main_picture
