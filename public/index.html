@@ -11,9 +11,11 @@
 </head>
 <body>
   <div id="vue-app">
+  <a href="/#/">Home</a>
   <a href="/#/signup">Signup</a>
   <a href="/#/login">Login</a>
   <a href="/#/logout">Logout</a>
+  <a href="/#/posts/new">New Post</a>
 
   <div class="container">
     <router-view></router-view>
@@ -30,6 +32,7 @@
     <div v-for="post in posts">
       <h2>{{ post.title}}</h2>
       <p>{{ post.body}}</p>
+  <p> <a v-bind:href="'/#/posts/' + post.id" class="btn btn-primary">See Post</a></p>
     </div>
 
   </div>
@@ -86,3 +89,104 @@
 
   </div>
 </template>
+
+<template id="new-post-page">
+  <div class="vue-component">
+
+    <div class="container">
+      <h1>Create a New Post</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Title:</label> 
+        <input type="text" class="form-control" v-model="title">
+      </div>
+      <div class="form-group">
+        <label>Body:</label>
+        <input type="decimal" class="form-control" v-model="body">
+      </div>
+      <div class="form-group">
+        <label>Main Picture:</label>
+        <input type="text" class="form-control" v-model="mainPicture">
+      </div>
+      <div class="form-group">
+        <label>Link:</label>
+        <input type="text" class="form-control" v-model="link">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+
+  </div>
+</template>
+
+<template id="show-post-page">
+  <div class="vue-component">
+
+    <h2>{{ post.title }}</h2>
+    <img :src="post.main_picture" alt="">
+    <p>Body: {{ post.body }}</p>
+    <p> <a target="blank" v-bind:href="post.link">Link</a> </p>
+
+    <a v-bind:href="'/#/posts/' + post.id + '/edit'">Edit</a> <br>
+    <a href="/" class="btn btn-secondary">Back to Index</a>
+
+  </div>
+</template>
+
+<template id="edit-post-page">
+  <div class="vue-component">
+
+  
+      <h1>Edit this post</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Title:</label> 
+        <input type="text" class="form-control" v-model="title">
+      </div>
+      <div class="form-group">
+        <label>Body:</label>
+        <input type="text" class="form-control" v-model="body">
+      </div>
+      <div class="form-group">
+        <label>Main Picture:</label>
+        <input type="text" class="form-control" v-model="mainPicture">
+      </div>
+      <div class="form-group">
+        <label>Link:</label>
+        <input type="integer" class="form-control" v-model="link">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button> <br>
+      <br>
+      <a v-bind:href="'/#/posts/' + post.id + '/edit'">Edit</a> 
+      <button v-on:click="deletePost(post)">Delete Post!</button>
+    
+
+  </div>
+</template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

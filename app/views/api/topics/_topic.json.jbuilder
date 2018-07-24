@@ -6,3 +6,5 @@ json.array! topic.posts, partial: 'api/posts/post', as: :post
 end
 
 
+##need to associate the post associate with topic only 
+

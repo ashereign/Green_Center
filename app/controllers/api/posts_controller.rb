@@ -15,10 +15,11 @@ class Api::PostsController < ApplicationController
 
   def create
     @post = Post.new(
-      title = params[:title],
-      body = params[:body],
-      main_picture = params[:main_picture],
-      link = params[:link])
+      title: params[:title],
+      body: params[:body],
+      main_picture: params[:main_picture],
+      link: params[:link],
+      user_id: current_user.id)
 
     @post.save
     render "show.json.jbuilder"

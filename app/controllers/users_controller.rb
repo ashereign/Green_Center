@@ -1,4 +1,4 @@
-class Api::UsersController < ApplicationController
+class UsersController < ApplicationController
 
   def create
     @user = User.new(
@@ -32,6 +32,7 @@ class Api::UsersController < ApplicationController
     @post.username = params[:username] || @post.username
     @user.save
     render "show.json.jbuilder"
+  end
 
   def destroy
    user_id = current_user[:id]

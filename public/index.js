@@ -4,7 +4,8 @@ var HomePage = {
   template: "#home-page",
   data: function() {
     return {
-      posts: []
+      posts: [],
+      currentPost: {}
     };
   },
   created: function() {
@@ -13,7 +14,12 @@ var HomePage = {
       console.log(this.posts);
     }.bind(this));
   },
-  methods: {},
+  methods: {
+    setCurrentPost: function(post) {
+      this.currentPost = post;
+      console.log(this.currentPost);
+    }
+  },
   computed: {}
 };
 
@@ -92,12 +98,111 @@ var LogoutPage = {
   }
 };
 
+var NewPostPage = {
+  template: "#new-post-page",
+  data: function() {
+    return {
+      title: "",
+      body: "",
+      mainPicture: "",
+      link: "",
+      errors: []
+    };
+  },
+  methods: {
+    submit: function() {
+      var params = {
+        title: this.title,
+        body: this.body,
+        mainPicture: this.mainPicture,
+        link: this.link
+      };
+      axios
+        .post("/api/posts", params)
+        .then(function(response) {
+          router.push("/");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this)
+        );
+    }
+  }
+};
+
+var ShowPostPage = {
+  template: "#show-post-page",
+  data: function() {
+    return {
+      post: {}
+    };
+  },
+  created: function() {
+    axios.get("/api/posts/" + this.$route.params.id).then(function(response){
+      this.post = response.data;
+      console.log(this.post);
+    }.bind(this));
+  },
+  methods: {},
+  computed: {}
+};
+
+var EditPostPage = {
+  template: "#edit-post-page",
+  data: function() {
+    return {
+      title: "",
+      body: "",
+      mainPicture: "",
+      link: "",
+      errors: []
+    };
+  },
+  created: function() {
+    axios.get("/api/posts/" + this.$route.params.id).then(function(response){
+      this.title = response.data.title;
+      this.body = response.data.body;
+      this.mainPicture = response.data.main_picture;
+      this.link = response.data.link;
+    }.bind(this));
+  },
+  methods: {
+    submit: function() {
+      var params = {
+        title: this.title,
+        body: this.body,
+        main_picture: this.mainPicture,
+        link: this.link
+      };
+      axios.patch("/api/posts/" + this.$route.params.id, params)
+        .then(function(response) {
+          router.push("/");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this)
+        );
+    },
+    deletePost: function(post) {
+      axios.delete("/api/posts/" + post.id).then(function(response){
+        var index = this.posts.indexOf(post);
+        this.posts.splice(index, 1);
+      }.bind(this));
+    }
+  }
+};
+
 var router = new VueRouter({
   routes: [
   { path: "/", component: HomePage },
   { path: "/signup", component: SignupPage },
   { path: "/login", component: LoginPage },
-  { path: "/logout", component: LogoutPage }
+  { path: "/logout", component: LogoutPage },
+  { path: "/posts/new", component: NewPostPage },
+  { path: "/posts/:id", component: ShowPostPage},
+  { path: "/posts/:id/edit", component: EditPostPage},
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };
