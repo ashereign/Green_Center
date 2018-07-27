@@ -11,3 +11,6 @@ json.updated_at post.updated_at
 # json.username post.user.username
 # json.avatar post.user.avatar
 # end
+
+# json.topics do
+#   json.

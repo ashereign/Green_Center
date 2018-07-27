@@ -21,15 +21,23 @@ class Api::PostsController < ApplicationController
       link: params[:link],
       user_id: current_user.id)
 
-    @post.save
-    render "show.json.jbuilder"
-    # if @post.save
-    #   render "show.json.jbuilder"
-    # else
-    #   render json: {errors: @post.errors.full_messages}, status: :unprocessable_entity
-    # end
-  end
 
+    if @post.save
+      params[:topic_ids].each do |topic_id|
+      PostTopic.create(
+        topic_id: topic_id,
+        post_id: @post.id)
+    end
+      
+#create a a new post topic 
+      render "show.json.jbuilder"
+      # if @post.save
+      #   render "show.json.jbuilder"
+      # else
+      #   render json: {errors: @post.errors.full_messages}, status: :unprocessable_entity
+      # end
+      end
+    end 
   def update
     post_id = params[:id]
     @post = Post.find_by(id: post_id)

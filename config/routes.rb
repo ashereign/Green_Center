@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 namespace :api do
 
   get "/posts" => "posts#index"
-  get "posts/:id" => "posts#show"
+  get "/posts/:id" => "posts#show"
   post "/posts" => "posts#create"
   patch "/posts/:id" => "posts#update"
   delete "/posts/:id" => "posts#destroy"
@@ -19,7 +19,9 @@ namespace :api do
 
   
 end  
-
+get "/users/:id" => "users#show"
 post "/users" => "users#create"
+patch "/users/:id" => "users#update"
+delete "/users/:id" => "users#destroy"
 
 end

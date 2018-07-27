@@ -30,6 +30,8 @@ class UsersController < ApplicationController
     @post.email = params[:email] || @post.email
     @post.avatar = params[:avatar] || @post.avatar
     @post.username = params[:username] || @post.username
+    @post.password = params[:password] || @post.password
+    @post.password_confirmation = params[:password_confirmation] || @post.password_confirmation
     @user.save
     render "show.json.jbuilder"
   end

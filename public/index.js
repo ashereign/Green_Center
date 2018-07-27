@@ -29,7 +29,9 @@ var SignupPage = {
     return {
       name: "",
       email: "",
+      username: "",
       password: "",
+      avatar: "",
       passwordConfirmation: "",
       errors: []
     };
@@ -39,6 +41,8 @@ var SignupPage = {
       var params = {
         name: this.name,
         email: this.email,
+        username: this.username,
+        avatar: this.avatar,
         password: this.password,
         password_confirmation: this.passwordConfirmation
       };
@@ -54,6 +58,23 @@ var SignupPage = {
         );
     }
   }
+};
+
+var UserShowPage = {
+  template: "#user-show-page",
+  data: function() {
+    return {
+      user: {}
+    };
+  },
+  created: function() {
+    axios.get("/users/" + this.$route.params.id).then(function(response){
+      this.user = response.data;
+      console.log(this.user);
+    }.bind(this));
+  },
+  methods: {},
+  computed: {}
 };
 
 var LoginPage = {
@@ -76,7 +97,9 @@ var LoginPage = {
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.jwt;
           localStorage.setItem("jwt", response.data.jwt);
-          router.push("/");
+          console.log(response.data)
+          router.push("/users/" + response.data.user.id);
+          // need to interpolate current user id into id
         })
         .catch(
           function(error) {
@@ -98,24 +121,33 @@ var LogoutPage = {
   }
 };
 
-var NewPostPage = {
-  template: "#new-post-page",
+var PostNewPage = {
+  template: "#post-new-page",
   data: function() {
     return {
       title: "",
       body: "",
       mainPicture: "",
       link: "",
-      errors: []
+      topics: [],
+      errors: [],
+      topicIds: []
     };
+  },
+  created: function() {
+    axios.get("/api/topics/").then(function(response){
+      this.topics = response.data;
+      console.log(this.topics);
+    }.bind(this));
   },
   methods: {
     submit: function() {
       var params = {
         title: this.title,
         body: this.body,
-        mainPicture: this.mainPicture,
-        link: this.link
+        main_picture: this.mainPicture,
+        link: this.link,
+        topic_ids: this.topicIds
       };
       axios
         .post("/api/posts", params)
@@ -131,8 +163,8 @@ var NewPostPage = {
   }
 };
 
-var ShowPostPage = {
-  template: "#show-post-page",
+var PostShowPage = {
+  template: "#post-show-page",
   data: function() {
     return {
       post: {}
@@ -148,23 +180,26 @@ var ShowPostPage = {
   computed: {}
 };
 
-var EditPostPage = {
-  template: "#edit-post-page",
+var PostEditPage = {
+  template: "#post-edit-page",
   data: function() {
     return {
       title: "",
       body: "",
       mainPicture: "",
       link: "",
+      id: "",
       errors: []
     };
   },
   created: function() {
     axios.get("/api/posts/" + this.$route.params.id).then(function(response){
+      console.log(response.data)
       this.title = response.data.title;
       this.body = response.data.body;
       this.mainPicture = response.data.main_picture;
       this.link = response.data.link;
+      this.id = response.data.id;
     }.bind(this));
   },
   methods: {
@@ -177,22 +212,94 @@ var EditPostPage = {
       };
       axios.patch("/api/posts/" + this.$route.params.id, params)
         .then(function(response) {
-          router.push("/");
-        })
+          router.push("/posts/" + this.$route.params.id);
+        }.bind(this))
         .catch(
           function(error) {
             this.errors = error.response.data.errors;
           }.bind(this)
         );
     },
-    deletePost: function(post) {
-      axios.delete("/api/posts/" + post.id).then(function(response){
-        var index = this.posts.indexOf(post);
-        this.posts.splice(index, 1);
+    deletePost: function() {
+      axios.delete("/api/posts/" + this.id).then(function(response){
+        router.push("/");
       }.bind(this));
     }
   }
 };
+
+var TopicShowPage = {
+  template: "#topic-show-page",
+  data: function() {
+    return {
+      topic: {},
+      message: {},
+      
+    };
+  },
+  created: function() {
+    axios.get("/api/topics/" + this.$route.params.id).then(function(response){
+      this.topic = response.data;
+      console.log(this.topic);
+    }.bind(this));
+  },
+  methods: {},
+  computed: {}
+};
+
+
+var UserEditPage = {
+  template: "#user-edit-page",
+  data: function() {
+    return {
+      name: "",
+      email: "",
+      username: "",
+      avatar: "",
+      password: "",
+      passwordConfirmation: "",
+      id: "",
+      errors: []
+    };
+  },
+  created: function() {
+    axios.get("/users/" + this.$route.params.id).then(function(response){
+      console.log(response.data)
+      this.name = response.data.name;
+      this.email = response.data.email;
+      this.username = response.data.username;
+      this.avatar = response.data.avatar;
+      this.id = response.data.id;
+    }.bind(this));
+  },
+  methods: {
+    submit: function() {
+      var params = {
+        name: this.name,
+        email: this.email,
+        username: this.username,
+        avatar: this.avatar,
+        password: this.password,
+        password_confirmation: this.passwordConfirmation
+      };
+      axios.patch("/users/" + this.$route.params.id, params)
+        .then(function(response) {
+          router.push("/users/" + this.$route.params.id);
+        }.bind(this))
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this)
+        );
+    },
+    deleteProfile: function() {
+      axios.delete("/api/users/" + this.id).then(function(response){
+        router.push("/");
+      }.bind(this));
+    }
+  }
+};
+
 
 var router = new VueRouter({
   routes: [
@@ -200,9 +307,12 @@ var router = new VueRouter({
   { path: "/signup", component: SignupPage },
   { path: "/login", component: LoginPage },
   { path: "/logout", component: LogoutPage },
-  { path: "/posts/new", component: NewPostPage },
-  { path: "/posts/:id", component: ShowPostPage},
-  { path: "/posts/:id/edit", component: EditPostPage},
+  { path: "/posts/new", component: PostNewPage },
+  { path: "/posts/:id", component: PostShowPage},
+  { path: "/posts/:id/edit", component: PostEditPage},
+  { path: "/topics/:id", component: TopicShowPage},
+  { path: "/users/:id", component: UserShowPage},
+  { path: "/users/:id/edit", component: UserEditPage}
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };
