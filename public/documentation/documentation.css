@@ -1,0 +1,48 @@
+/*
+Documentation style
+*/
+.docs-header{
+    padding: 50px 0;
+}
+.section-docs{
+    background-color: #f5fbf8;
+    padding: 40px 20px;
+    margin-bottom: 30px;
+}
+.section-docs h3{
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+.highlight pre {
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: transparent;
+    border: 0;
+}
+pre {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 90%;
+    color: #292b2c;
+}
+pre code {
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+    background-color: transparent;
+    border-radius: 0;
+}
+.cp {
+    color: #099;
+}
+.s {
+    color: #d44950;
+}
+.na {
+    color: #4f9fcf;
+}
+.c {
+    color: #999;
+}

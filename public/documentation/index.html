@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+
+<head>
+    <title>Versa - Docs</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../html/plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="documentation.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container docs-header text-center">
+        <h2>Basic help file for Versa 2.2</h2>
+        <p>First, thanks for your purchase, Versa is clean and minimal, powerful multipurpose template, Built with Sass, gulp
+            and bootstrap4 beta, also you will get the regular awesome updates for free. This file is explain how to use
+            contact form, video backgrounds, parallax etc.</p>
+    </div>
+    <div class="container">
+        <div class="section-docs">
+            <p>Version -
+                <strong>2.2</strong>
+            </p>
+            <p>Url -
+                <strong>
+                    <a href="http://bootstraplovers.com/bootstrap4/versa-v2.2/html/intro-v2.html">http://bootstraplovers.com/bootstrap4/versa-v2.2/html/intro-v2.html</a>
+                </strong>
+            </p>
+            <p>Author -
+                <strong>Design_mylife</strong>
+            </p>
+            <p>Need Support -
+                <strong>mylifedesign143@gmail.com</strong>
+            </p>
+            <p>Last Update -
+                <strong>16/06/2018</strong>
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="section-docs">
+            <h3>File structure</h3>
+            <ul>
+                <li>documentation</li>
+                <li>
+                    Html/
+                    <ul>
+                        <li>contact-form</li>
+                        <li>css</li>
+                        <li>images</li>
+                        <li>js</li>
+                        <li>
+                            <strong>plugins</strong>
+                            <ul>
+                                <li>Bootstrap</li>
+                                <li>cubeportfolio</li>
+                                <li>masterslider</li>
+                                <li>dzsparallaxer</li>
+                                <li>font-awesome</li>
+                                <li>jquery</li>
+                                <li>.......</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>scss</strong>
+                            <ul>
+                                <li>_variables.scss</li>
+                                <li>_common.scss</li>
+                                <li>_cards.scss</li>
+                                <li>_header.scss</li>
+                                <li>_footer.scss</li>
+                                <li>........</li>
+                            </ul>
+                        </li>
+                        <li>gulpfile.js</li>
+                        <li>packages.json</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="section-docs">
+            <h3>Starter Template</h3>
+            <br>
+            <figure class="highlight">
+                <pre><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="c">&lt;!-- Required meta tags --&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1, shrink-to-fit=no"</span><span class="nt">&gt;</span>
+
+    <span class="c">&lt;!-- plugins CSS (all plugins css file compile into one file by gulp) --&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"css/plugins/plugins.css"</span> <span class="nt">&gt;</span>
+    <span class="c">&lt;!-- cuatom CSS fle --&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"css/style.css"</span> <span class="nt">&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Hello, world!<span class="nt">&lt;/h1&gt;</span>
+
+    <span class="c">&lt;!-- Plugins first, then custom js file --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/bundle/bundle.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/versa.custom.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+   
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre>
+            </figure>
+        </div>
+    </div>
+    <div class="container">
+        <div class="section-docs">
+            <h3>Contact Form</h3>
+            <ul>
+                <li>Make sure your website is on server, php not working localy. so first you need to put the website on server
+                    for make contact form working</li>
+                <li>Make sure all the path you given into
+                    <code>html/contact-form/js/smart-form.js</code> is correct
+
+
+                </li>
+                <li>
+                    Open
+                    <code>html/smart-form/php/settings.php</code> and add your email to receiver email address -
+                    <code>$receiver_email = "example@domain.com";</code>
+                </li>
+                <li>After making the changes - contact form will working fine as work on live demo</li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="section-docs">
+            <h3>Youtube video background</h3>
+            <p>we've use ytplayer plugin for youtube video backgrounds. Its work on desktop only</p>
+            <p>
+                Replace your video Url here -- data-property="{videoURL:
+                <code>'dk9uNWPP7EA'
+                    </code>}
+            </p>
+            <p>Click
+                <a href='https://github.com/pupunzi/jquery.mb.YTPlayer' target='_blank'>Here</a> for more details</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="section-docs">
+            <h3>Sass uses</h3>
+            <p>Versa is built using sass and gulp. with sass you can easily manage your css customization</p>
+            <br>
+            <p>
+                If you are not familiar with sass, then you can use the style.css file directly for customizations
+                <br>custom css file -
+                <code>html/css/style.css</code>
+            </p>
+            <p class="lead">
+                If you are using
+                <a href="http://sass-lang.com/">sass</a>, you have a good news because Versa is built using sass.
+                <br> Sass is compiled by
+                <a href="http://gulpjs.com/" target="_blank">GULP</a>
+            </p>
+            <h5>How to make working sass with gulp</h5>
+            <p>
+                We're say special thank to css tricks who help me out for working with gulp you can easily learn how to use gulp and how
+                to compile file. click on this link and get quick start with gulp -
+                <a href="https://css-tricks.com/gulp-for-beginners/">Gulp for beginners</a>
+            </p>
+            <p>
+                All plugins css files compile into one file -
+                <code>css/plugins/plugins.css</code>
+            </p>
+            <p>
+                All plugins jquery files compile into one file -
+                <code>js/bundle/bundle.js</code>
+            </p>
+            <h5>How to import sass files into style.scss</h5>
+            <p>
+                We are creating custom scss files for every single component like pricing tables style into _pricing.scss file.
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="section-docs">
+            <h3>Credits</h3>
+            <ul>
+                <li>
+                    <a href="https://getbootstrap.com/" target="_blank">Bootstrap 4 Beta</a>
+                </li>
+                <li>
+                    <a href="https://jquery.com/" target="_blank">Jquery</a>
+                </li>
+                <li>
+                    <a href="http://fontawesome.io/" target="_blank">Font-awesome</a>
+                </li>
+                <li>
+                    <a href="https://www.elegantthemes.com/blog/resources/how-to-use-and-embed-an-icon-font-on-your-website"
+                        target="_blank">Et-line icons</a>
+                </li>
+                <li>
+                    <a href="https://masonry.desandro.com/" target="_blank">Masonry</a>
+                </li>
+                <li>
+                    <a href="https://daneden.github.io/animate.css/" target="_blank">Animated css</a>
+                </li>
+                <li>
+                    <a href="http://mynameismatthieu.com/WOW/" target="_blank">Wow Js</a>
+                </li>
+                <li>
+                    <a href="http://sass-lang.com/" target="_blank">Sass</a>
+                </li>
+                <li>
+                    <a href="http://gulpjs.com/" target="_blank">Gulp</a>
+                </li>
+                <li>
+                    <a href="https://bower.io/" target="_blank">Bower</a>
+                </li>
+                <li>
+                    <a href="https://owlcarousel2.github.io/OwlCarousel2/" target="_blank">Owl carousel 2</a>
+                </li>
+                <li>
+                    <a href="http://www.mattboldt.com/demos/typed-js/" target="_blank">Typed Js</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="section-docs">
+            <h3>Changelog</h3>
+            <ul>
+                <li>
+                    <strong>Version v2.2</strong>
+                    <ul>
+                        <li>Upgrade to Bootstrap 4.1.1</li>
+                        <li>Minor bug fixes</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="section-docs">
+            <h3>Support</h3>
+            <p>If you need any support related html files, feel free to contact us here -
+                <a href='https://wrapbootstrap.com/user/design_mylife'>https://wrapbootstrap.com/user/design_mylife</a>
+            </p>
+            <p>Or mail us - mylifedesign143@gmail.com</p>
+        </div>
+    </div>
+    <div class='container' style='padding: 25px 0'>
+        &copy; Copyright 2020. Design_mylife
+    </div>
+</body>
+
+</html>

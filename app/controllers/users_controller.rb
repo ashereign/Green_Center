@@ -17,8 +17,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    user_id = current_user[:id]
-    @user = User.find_by(id: user_id)
+    # user_id = current_user.id
+    @user = User.find_by(id: params[:id])
     render "show.json.jbuilder"
   end
 
@@ -26,12 +26,12 @@ class UsersController < ApplicationController
     user_id = params[:id]
     @user = User.find_by(id: user_id)
 
-    @user.name = params[:name] || @post.name
-    @post.email = params[:email] || @post.email
-    @post.avatar = params[:avatar] || @post.avatar
-    @post.username = params[:username] || @post.username
-    @post.password = params[:password] || @post.password
-    @post.password_confirmation = params[:password_confirmation] || @post.password_confirmation
+    @user.name = params[:name] || @user.name
+    @user.email = params[:email] || @user.email
+    @user.avatar = params[:avatar] || @user.avatar
+    @user.username = params[:username] || @user.username
+    @user.password = params[:password] || @user.password
+    @user.password_confirmation = params[:password_confirmation] || @user.password_confirmation
     @user.save
     render "show.json.jbuilder"
   end

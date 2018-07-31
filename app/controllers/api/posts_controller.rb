@@ -4,6 +4,10 @@ class Api::PostsController < ApplicationController
 
   def index
     @posts = Post.all 
+    if params[:search]
+      @posts = Post.where("title LIKE ?", "%#{params[:search]}%")
+    end
+
     render 'index.json.jbuilder'
   end
 

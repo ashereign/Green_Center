@@ -5,7 +5,8 @@ var HomePage = {
   data: function() {
     return {
       posts: [],
-      currentPost: {}
+      currentPost: {},
+      titleFilter: ""
     };
   },
   created: function() {
@@ -18,9 +19,13 @@ var HomePage = {
     setCurrentPost: function(post) {
       this.currentPost = post;
       console.log(this.currentPost);
+    },
+    isValidPost: function(post) {
+      return post.title.toLowerCase().includes(this.titleFilter.toLowerCase());
     }
   },
-  computed: {}
+  computed: {
+  }
 };
 
 var SignupPage = {
@@ -73,8 +78,73 @@ var UserShowPage = {
       console.log(this.user);
     }.bind(this));
   },
-  methods: {},
+  methods: {
+    getUserId: function() {
+      return localStorage.getItem("user_id");
+    },
+    isOwner: function() {
+      if(localStorage.getItem("user_id")== this.user.id){
+        console.log("success");
+        return true 
+      } else{
+        console.log("failure")
+        return false
+      }
+    }
+  },
   computed: {}
+};
+
+var UserEditPage = {
+  template: "#user-edit-page",
+  data: function() {
+    return {
+      name: "",
+      email: "",
+      username: "",
+      avatar: "",
+      password: "",
+      passwordConfirmation: "",
+      id: "",
+      errors: []
+    };
+  },
+  created: function() {
+    axios.get("/users/" + this.$route.params.id).then(function(response){
+      console.log(response.data)
+      this.name = response.data.name;
+      this.email = response.data.email;
+      this.username = response.data.username;
+      this.avatar = response.data.avatar;
+      this.id = response.data.id;
+    }.bind(this));
+  },
+  methods: {
+    submit: function() {
+      var params = {
+        name: this.name,
+        email: this.email,
+        username: this.username,
+        avatar: this.avatar,
+        password: this.password,
+        password_confirmation: this.passwordConfirmation
+      };
+      axios.patch("/users/" + this.$route.params.id, params)
+        .then(function(response) {
+          router.push("/users/" + this.$route.params.id);
+        }.bind(this))
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this)
+        );
+    },
+    deleteProfile: function() {
+      axios.delete("/users/" + this.id).then(function(response){
+        router.push("/");
+      }.bind(this));
+    }
+  }
 };
 
 var LoginPage = {
@@ -97,6 +167,7 @@ var LoginPage = {
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.jwt;
           localStorage.setItem("jwt", response.data.jwt);
+          localStorage.setItem("user_id", response.data.user.id);
           console.log(response.data)
           router.push("/users/" + response.data.user.id);
           // need to interpolate current user id into id
@@ -117,6 +188,7 @@ var LogoutPage = {
   created: function() {
     axios.defaults.headers.common["Authorization"] = undefined;
     localStorage.removeItem("jwt");
+    localStorage.removeItem("user_id");
     router.push("/");
   }
 };
@@ -167,7 +239,8 @@ var PostShowPage = {
   template: "#post-show-page",
   data: function() {
     return {
-      post: {}
+      post: {},
+      topics: []
     };
   },
   created: function() {
@@ -175,8 +248,27 @@ var PostShowPage = {
       this.post = response.data;
       console.log(this.post);
     }.bind(this));
+    {
+        axios.get("/api/topics/").then(function(response){
+          this.topics = response.data;
+          console.log(this.topics);
+        }.bind(this));
+      }
   },
-  methods: {},
+
+  methods: {
+    isOwner: function() {
+      console.log(localStorage.getItem("user_id"));
+      console.log(this.post.user_id);
+      if(localStorage.getItem("user_id")== this.post.user_id){
+        console.log("success");
+        return true 
+      } else{
+        console.log("failure")
+        return false
+      }
+    }
+  },
   computed: {}
 };
 
@@ -247,60 +339,6 @@ var TopicShowPage = {
   computed: {}
 };
 
-
-var UserEditPage = {
-  template: "#user-edit-page",
-  data: function() {
-    return {
-      name: "",
-      email: "",
-      username: "",
-      avatar: "",
-      password: "",
-      passwordConfirmation: "",
-      id: "",
-      errors: []
-    };
-  },
-  created: function() {
-    axios.get("/users/" + this.$route.params.id).then(function(response){
-      console.log(response.data)
-      this.name = response.data.name;
-      this.email = response.data.email;
-      this.username = response.data.username;
-      this.avatar = response.data.avatar;
-      this.id = response.data.id;
-    }.bind(this));
-  },
-  methods: {
-    submit: function() {
-      var params = {
-        name: this.name,
-        email: this.email,
-        username: this.username,
-        avatar: this.avatar,
-        password: this.password,
-        password_confirmation: this.passwordConfirmation
-      };
-      axios.patch("/users/" + this.$route.params.id, params)
-        .then(function(response) {
-          router.push("/users/" + this.$route.params.id);
-        }.bind(this))
-        .catch(
-          function(error) {
-            this.errors = error.response.data.errors;
-          }.bind(this)
-        );
-    },
-    deleteProfile: function() {
-      axios.delete("/api/users/" + this.id).then(function(response){
-        router.push("/");
-      }.bind(this));
-    }
-  }
-};
-
-
 var router = new VueRouter({
   routes: [
   { path: "/", component: HomePage },
@@ -329,5 +367,16 @@ var app = new Vue({
     if (jwt) {
       axios.defaults.headers.common["Authorization"] = jwt;
     }
-  }
+  },
+  methods: {
+      isLoggedIn: function() {
+        if(localStorage.getItem("jwt")) {
+          return true;
+        }
+        return false;
+      },
+      getUserId: function() {
+        return localStorage.getItem("user_id");
+      }
+    }
 });
