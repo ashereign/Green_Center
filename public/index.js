@@ -326,12 +326,15 @@ var TopicShowPage = {
     return {
       topic: {},
       message: {},
+      topicPicture: "",
+      color: "red"
       
     };
   },
   created: function() {
     axios.get("/api/topics/" + this.$route.params.id).then(function(response){
       this.topic = response.data;
+      this.topicPicture = response.data.theme_picture
       console.log(this.topic);
     }.bind(this));
   },

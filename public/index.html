@@ -77,7 +77,7 @@
 
   <a v-if="isLoggedIn()" v-bind:href="'/#/users/' + getUserId()">
 
-  <button type="button" class="btn btn-success btn-lg mb5"><i class="fa fa-user mr-1"></i> Profile</button>
+  <button type="button" class="btn btn-lg btn-rounded btn-outline-success mb5"></i> Profile</button>
   </a>
 
 
@@ -205,44 +205,139 @@
 <template id="login-page">
   <div class="vue-component">
 
-    <div class="container">
-      <h1>Login</h1>
-      <ul>
-        <li class="text-danger" v-for="error in errors">{{ error }}</li>
-      </ul>
-      <div class="form-group">
-        <label>Email:</label>
-        <input type="email" class="form-control" v-model="email">
-      </div>
-      <div class="form-group">
-        <label>Password:</label>
-        <input type="password" class="form-control" v-model="password">
-      </div>
-      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
-    </div>
 
+    <!--page title-->
+    <div class="dzsparallaxer auto-init height-is-based-on-content "  data-options='{   direction: "reverse"}'>
+        <div class="divimage dzsparallaxer--target " style="width: 101%; height: 130%; background-image: url(https://images.unsplash.com/photo-1490041125797-76d80076bf80?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=4e0257ac71eec118c99049d73f20e8aa&auto=format&fit=crop&w=1350&q=80)">
+        </div>
+
+        <div class="container pt100">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto wow bounceIn" data-wow-delay=".2s">
+                    <h3 class="h3 mb30 text-center pt100 pb100 font300 text-white">Login to your account</h3>
+                </div>
+            </div>
+        </div>
+       
+    </div><!--parallax-->
+    <!--/.page-title-->
+      <div class='container pb50  pt50-md'>
+            <div class='row'>
+                <div class='col-md-6 col-lg-5 mr-auto ml-auto'>
+                    <div class='card card-account'>
+                        <div class='card-body'>
+                            <form>
+                                <div class='form-group'>
+                                  <ul>
+                                    <li class="text-danger" v-for="error in errors">{{ error }}</li>
+                                  </ul>
+                                    <label for='username'>Email</label>
+                                    <input id='username' type="email" class="form-control" v-model="email" placeholder='......'>
+                                </div>
+                                <div class='form-group'>
+                                    <label for='password'>Password</label>
+                                    <input id='password' type="password" class="form-control" v-model="password" placeholder='......'>
+                                </div>
+                                <button v-on:click="submit()" type='button' class='btn btn-block btn-secondary btn-rounded'>Sign In</button>
+                            </form>
+                            <br>
+                            <p class='mb0 text-small'>Dont' have an account? <a href="/#/signup" class='btn btn-underline'>Sign Up</a></p>
+                            <!-- <p class=' text-small mb0'>Forget your password? <a href='#' class='btn btn-underline'>Recover</a></p> -->
+                            <hr>
+                            <div class='text-center mb20'>Or Login with</div>
+                            <a href='#' class="btn btn-social facebook btn-block"><i class="fa fa-facebook"></i>Login with facebook</a>
+                             <a href='#' class="btn btn-social twitter btn-block"><i class="fa fa-twitter"></i>Login with Twitter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
   </div>
 </template>
 
 <template id="user-show-page">
   <div class="vue-component">
 
+    <div class="container pt90 pb60">
+        <div class='feature-col mb30'>
+            <div class='row align-items-center'>
+                <div class='col-md-5 ml-auto'>
+                    <img :src="user.avatar" alt="" class='img-fluid center-img rounded-circle mb20 shadow20'>
+                </div>
+                <div class='col-md-5 mr-auto pt30-md'>
+                    <h4 class='h2 mb0'>{{ user.name }}</h4>
+                    <span class='h6 text-muted mb20'>{{ user.username }}</span>
+                     
+                    <div v-for="post in user.posts">
+                        <h4> {{ post.title }}</h4>
+                            <p> {{ post.mainPicture }}</p>
+                            <p> {{ post.body }}</p>
+                            <a v-if="isOwner()" v-bind:href="'/#/posts/' + post.id + '/edit'">
+                               <button type="button" class="btn btn-sm btn-rounded btn-outline-secondary mb5">Edit Post
+                               </button>
+                            </a> 
+                    </div>
+                    <ul class='list-inline social-list'>
+                        <li class='list-inline-item'><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li class='list-inline-item'><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li class='list-inline-item'><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li class='list-inline-item'><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        <li>
+                          <a v-if="isOwner()"  v-bind:href="'/#/users/' + user.id + '/edit'"> 
+                            <button type="button" class="btn btn-lg btn-rounded btn-outline-secondary mb5" class="row align-items-center">Edit Profile
+                            </button>
+                          </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--team col-->
+       <!--team col-->         
+    </div>
+  </div>
+</template>
 
-    <h2>{{ user.name }}</h2>
-    <img :src="user.avatar" alt="">
+<template id="user-edit-page">
+  <div class="vue-component">
+    <div class="container">
+  
+      <h1>Edit your Profile</h1>
+      <h5>
+        <button v-on:click="deleteProfile()" type="button" class="btn btn-lg btn-rounded btn-outline-danger mb5">Delete Profile</button>
+      </h5>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Name:</label> 
+        <input type="text" class="form-control" v-model="name">
+      </div>
+      <div class="form-group">
+        <label>Email:</label>
+        <input type="text" class="form-control" v-model="email">
+      </div>
+      <div class="form-group">
+        <label>Username:</label>
+        <input type="text" class="form-control" v-model="username">
+      </div>
+      <div class="form-group">
+        <label>Avatar:</label>
+        <input type="text" class="form-control" v-model="avatar">
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="text" class="form-control" v-model="password">
+      </div>
+      <div class="form-group">
+        <label>Password Confirmation:</label>
+        <input type="text" class="form-control" v-model="passwordConfirmation">
+      </div>
+      
+      <button v-on:click="submit()" type="button" class="btn btn-lg btn-rounded btn-primary mb5">Submit Changes</button>
+    </div>
+      
 
-  <div v-for="post in user.posts">
-    <h4> {{ post.title }}</h4>
-    <p> {{ post.mainPicture }}</p>
-    <p> {{ post.body }}</p>
-  </div>  
-    <!-- <p>Avatar: {{ user.post.title }}</p> -->
-   <!--  <p> <a target="blank" v-bind:href="user.link">Link</a> </p> -->
-    <a v-if="isOwner()"  v-bind:href="'/#/users/' + user.id + '/edit'"> 
-      <button type="button" class="btn btn-lg btn-rounded btn-outline-secondary mb5">Edit Profile
-      </button>
-    </a>
-   
   </div>
 </template>
 
@@ -271,18 +366,19 @@
         <input type="text" class="form-control" v-model="link">
       </div>
 
-      <label>Tag Post to Topics:</label>
+    
+      <h4>Tag Post to Topics:</h4>
       <div v-for="topic in topics">
-        <div class="form-group">
-          <h4> {{ topic.name }}</h4>
+        <div class="topics">
+          <h6 class="text-italic mb5"> {{ topic.name }}
           <input
             type="checkbox"
             v-model="topicIds"
             :value="topic.id"
-          >
+          ></h6>
         </div>  
       </div>
-      <p> {{ topicIds }} </p>
+     <!--  <p> {{ topicIds }} </p> -->
        
       <button class="btn btn-primary" v-on:click="submit()">Submit</button>
     </div>
@@ -318,7 +414,7 @@
             <ul class="list-inline">
                 <li class="list-inline-item"><i class="fa fa-user"></i> <a href="#" class="btn btn-underline">Admin</a></li>
                 <li class="list-inline-item"><i class="fa fa-calendar-check-o"></i> {{post.created_at}}</li>
-                <li class="list-inline-item"><i class="fa fa-tag"></i> <a href="#" class="btn btn-underline">{{ post.user_id }}</a></li>
+                <li class="list-inline-item"><i class="fa fa-tag"></i> <a href="#" class="btn btn-underline">{{ post.user_name }}</a></li>
 
                 <li class="list-inline-item">
                   <a v-if="isOwner()" v-bind:href="'/#/posts/' + post.id + '/edit'">
@@ -438,25 +534,10 @@
 
           </div>
           <div class="col-md-3">
-              <!-- <div class="widget">
-                  <h3>Post categories</h3>
-                  <ul class="list-unstyled">
-                      <li><a href="#" class="btn btn-underline">Web design</a></li>
-                      <li><a href="#" class="btn btn-underline">Bootstrap4</a></li>
-                      <li><a href="#" class="btn btn-underline">Angular js</a></li>
-                      <li><a href="#" class="btn btn-underline">Jquery</a></li>
-                  </ul>
-              </div> --><!--end widget-->
-              <!-- <div class="widget">
-                  <h3>About Author</h3>
-                  <p>
-                      Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño.
-                  </p>
-              </div> --><!--end widget-->
               <div class="widget">
                  <h3>Tags</h3>
-                  <ul v-for="topic in topics" class="list-inline tag-list">
-                      <li>{{ topic.name }}</li>
+                  <ul v-for="topic in post.topics" class="list-inline tag-list">
+                      <a v-bind:href="'/#/topics/' + topic.id">{{ topic.name }}</a>
                   </ul>
               </div><!--end widget-->
           </div>
@@ -467,20 +548,19 @@
       <div class="container">
           <div class="row">
               <div class="col-md-6 col-lg-3">
-                  <h4>Versa</h4>
+                  <h4>Green Center</h4>
                   <p>
-                      If you use this site regularly and would like to help keep the site on the Internet, please consider donating a small sum to help pay for the hosting and bandwidth bill. 
+                      Please do not intentionally misrepresent any information. This site is meant to help disseminate interesting content without infringing on protected information. 
                   </p>
                   <a href="#" class="btn btn-underline">Hire Us</a>
               </div><!--/.column-->
               <div class="col-md-6 col-lg-3">
-                  <h4>Quick Links</h4>
+                  <h4>Other Inspirational Sites</h4>
                   <ul class="list-unstyled">
-                      <li><a href="#" class="btn btn-underline">Changelog</a></li>
-                      <li><a href="#" class="btn btn-underline">Updates</a></li>
-                      <li><a href="#" class="btn btn-underline">News</a></li>
-                      <li><a href="#" class="btn btn-underline">Contact us</a></li>
-                      <li><a href="#" class="btn btn-underline">Bootstrap4 Beta</a></li>
+                      <li><a href="https://inhabitat.com/" class="btn btn-underline">Inhabitat</a></li>
+                      <li><a href="https://cleantechnica.com/" class="btn btn-underline">Clean Technica</a></li>
+                      <li><a href="https://www.cleantech.com/" class="btn btn-underline">Clean Tech Group</a></li>
+                      <li><a href="https://www.reddit.com/r/envirotech/" class="btn btn-underline">Reddit</a></li>
                   </ul>
 
               </div><!--/.column-->
@@ -491,7 +571,7 @@
                       <li><a href="#" class="btn btn-underline">Documentation</a></li>
                       <li><a href="#" class="btn btn-underline">Blog</a></li>
                       <li><a href="#" class="btn btn-underline">Terms & conditions</a></li>
-                      <li><a href="#" class="btn btn-underline">Privacy & policy</a></li>
+                      
                   </ul>
               </div><!--/.column-->
               <div class="col-md-6 col-lg-3">
@@ -510,20 +590,11 @@
                       <li class="list-inline-item"><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
                       <li class="list-inline-item"><a class="gplus" href="#"><i class="fa fa-google-plus"></i></a></li>
                   </ul>
-                  <span class="font400">&copy; Copyright 2020. Versa2.0</span>
+                  <span class="font400">&copy; Copyright 2018. Green Center</span>
               </div><!--/.column-->
           </div><!--/.row-->
       </div><!--/.container-->
   </footer><!--/.footer-->
-
-
-
-
-
-
-
-    
-
   </div>
 </template>
 
@@ -562,6 +633,68 @@
 <template id="topic-show-page">
   <div class="vue-component">
 
+
+    <!--page title-->
+    <div class="dzsparallaxer auto-init height-is-based-on-content "  data-options='{   direction: "reverse"}'>
+        <div class="divimage dzsparallaxer--target " v-bind:style="{background: 'url('+ topicPicture +')'}">
+                </div>
+
+        <div class="container pt100 pb70">
+            <div class="row pb50">
+                <div class="col-md-8 ml-auto mr-auto wow bounceIn" data-wow-delay=".2s">
+                    <h3 class="h1 text-center font300  pt100 text-white">{{ topic.name }}</h3>
+                </div>
+            </div>
+        </div>
+    </div><!--parallax-->
+    <!--/.page-title-->
+
+    <div class="container pt90 pb60">
+        <div v-for="post in topic.posts" class="row">
+            <div class="col-md-12">
+                <div class="card mb30 card-post">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-md-5 align-self-center">
+                            <a href="blog-single.html"><img class="img-fluid" :src="post.main_picture" alt=""></a>
+                        </div>
+                        <div class="col-12 col-md-7">
+                            <div class="card-body">
+                                <h4 class="card-title font400">{{ post.title}}</h4>
+                                <p class="card-text">{{ post.body}}</p>
+                            </div>
+                            <div class="card-bottom">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <a href="#">
+                                            <i class="fa fa-reply"></i> 7
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">
+                                            <i class="fa fa-comments"></i> 14
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">
+                                            <i class="fa fa-share-alt"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--post card-->
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
     <h1>{{ topic.name }}</h1>
     <img :src="topic.theme_picture" alt="">
 
@@ -582,45 +715,7 @@
   </div>
 </template>
 
-<template id="user-edit-page">
-  <div class="vue-component">
 
-  
-      <h1>Edit your Profile</h1>
-      <ul>
-        <li class="text-danger" v-for="error in errors">{{ error }}</li>
-      </ul>
-      <div class="form-group">
-        <label>Name:</label> 
-        <input type="text" class="form-control" v-model="name">
-      </div>
-      <div class="form-group">
-        <label>Email:</label>
-        <input type="text" class="form-control" v-model="email">
-      </div>
-      <div class="form-group">
-        <label>Username:</label>
-        <input type="text" class="form-control" v-model="username">
-      </div>
-      <div class="form-group">
-        <label>Avatar:</label>
-        <input type="text" class="form-control" v-model="avatar">
-      </div>
-      <div class="form-group">
-        <label>Password:</label>
-        <input type="text" class="form-control" v-model="password">
-      </div>
-      <div class="form-group">
-        <label>Password Confirmation:</label>
-        <input type="text" class="form-control" v-model="passwordConfirmation">
-      </div>
-      <button class="btn btn-primary" v-on:click="submit()">Submit</button> <br>
-      <br>
-      <button v-on:click="deleteProfile()">Delete Profile!</button>
-    
-
-  </div>
-</template>
 
 
 

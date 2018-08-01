@@ -7,10 +7,5 @@ json.link post.link
 json.created_at post.created_at
 json.updated_at post.updated_at
 
-# json.user do 
-# json.username post.user.username
-# json.avatar post.user.avatar
-# end
+json.user_name post.user.name 
 
-# json.topics do
-#   json.
