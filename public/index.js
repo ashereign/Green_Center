@@ -141,8 +141,11 @@ var UserEditPage = {
     },
     deleteProfile: function() {
       axios.delete("/users/" + this.id).then(function(response){
-        router.push("/");
-      }.bind(this));
+        axios.defaults.headers.common["Authorization"] = undefined;
+      localStorage.removeItem("jwt");
+      localStorage.removeItem("user_id");
+      router.push("/");
+      })
     }
   }
 };

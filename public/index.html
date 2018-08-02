@@ -25,27 +25,22 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-faded">
         <div class="navbar-right-col">
         <ul class="list-inline">
-
-            <li class="list-inline-item">
-                <a href="shop-cart.html"><i class="fa fa-shopping-basket"></i> <span class="badge badge-primary">2</span></a>
-            </li>
-            <li class="list-inline-item dropdown dropdown-search">
-                <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-search"></i></a>
-                <div class="dropdown-menu search-dropdown-menu dropdown-menu-left">
-                    <form role="form">
-                        <input type="text" class="form-control" placeholder="Search...">
-                        <button type="submit" class="btn-nav-search"><i class="fa fa-search"></i></button>
-                    </form>
-                </div>
-            </li>
+            
           </ul>
         </div>
-        <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt=""></a>
+        <a class="navbar-brand" href="index.html">Green Center</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav  ml-auto">
+
+              <li class="list-inline-item nav-item "><a data-scroll="" href="/#/topics/1" class="nav-link active">Energy</a></li>
+              <li class="list-inline-item nav-item "><a data-scroll="" href="/#/topics/2" class="nav-link">Food</a></li>
+              <li class="list-inline-item nav-item "><a data-scroll="" href="/#/topics/3" class="nav-link">Conservation</a></li>
+              <li class="list-inline-item nav-item "><a data-scroll="" href="/#/topics/4" class="nav-link">Consumables</a></li>
+              <li style="padding-right: 270px;" class="list-inline-item nav-item "><a data-scroll="" href="/#/topics/5" class="nav-link">Concepts</a></li>
+
               <li class="nav-item active">
                   <a class="nav-link" href="/#/">Home</a>
               </li>
@@ -59,29 +54,15 @@
               <li class="nav-item">
                   <a class="nav-link" v-if="!isLoggedIn()" href="/#/signup">Sign Up</a>
               </li>
+              <li>
+                <a v-if="isLoggedIn()" v-bind:href="'/#/users/' + getUserId()">
+              <button type="button" class="btn btn-lg btn-rounded btn-outline-success mb5"></i> Profile</button>
+            </a>
+              </li>
             </ul>
         </div>
     </nav><!--/footer-->
 
-  <div class="navbar-brand text-uppercase mb5 text-success mb5">
-      <ul class="mb0 list-inline text-center">
-          <li class="list-inline-item nav-item "><a data-scroll="" href="/#/topics/1" class="nav-link active">Energy</a></li>
-          <li class="list-inline-item nav-item "><a data-scroll="" href="/#/topics/2" class="nav-link">Food</a></li>
-          <li class="list-inline-item nav-item "><a data-scroll="" href="/#/topics/3" class="nav-link">Conservation</a></li>
-          <li class="list-inline-item nav-item "><a data-scroll="" href="/#/topics/4" class="nav-link">Consumables</a></li>
-          <li class="list-inline-item nav-item "><a data-scroll="" href="/#/topics/5" class="nav-link">Concepts</a></li>
-      </ul>
-  </div>
-
-
-
-  <a v-if="isLoggedIn()" v-bind:href="'/#/users/' + getUserId()">
-
-  <button type="button" class="btn btn-lg btn-rounded btn-outline-success mb5"></i> Profile</button>
-  </a>
-
-
-  
     <router-view :key="$route.fullPath">
       
     </router-view>
@@ -104,23 +85,44 @@
 
 <template id="home-page">
   <div class="vue-component">
+    <section class="dzsparallaxer auto-init dzsparallaxer---window-height use-loading" style="position: relative; height: 400px;" data-options='{  mode_scroll: "normal" }'>
+        <div class="divimage dzsparallaxer--target " data-src="https://images.unsplash.com/photo-1465522730904-a4c42ce10f7a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=30ca94ef10f956b8a5915f47e688ae8e&auto=format&fit=crop&w=762&q=80" style="width: 100%; height: 100%; background-image: url()">
+            <div class="content-table">
+                <div class="content-middle pt80 ">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10 col-lg-10 ml-auto mr-auto text-center">
+                                
+                                <h1 style="font-size: 100px; text-shadow: 1px 1px 20px #95f442; padding-bottom: 250px;" class="lead text-white mb20 text-muted">
+                                    Green Center
+                                </h1>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div><!--hero inner-->
 
-    <div class="dzsparallaxer auto-init height-is-based-on-content "  data-options='{   direction: "reverse"}'>
-        <div class="divimage dzsparallaxer--target " style="width: 101%; height: 150%; background-image: url(https://images.unsplash.com/photo-1532524869408-e8550b8fc54e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9d7faa611353dd1d6efe7c9ad8c927a0&auto=format&fit=crop&w=700&q=80">
-        </div>
-
-        <div class="container pt100 pb70">
-            <div class="row pb50">
-                <div class="col-md-8 ml-auto mr-auto wow bounceIn" data-wow-delay=".2s">
-                    <h3 class="h1 text-center font500  pt500 text-white">Green Center</h3>
-                </div>
-            </div>
-        </div>
-    </div>
+            </div><!--parallax hero-->
+        </div><!--parallax image div-->
+        <div class="mouse-down"><a data-scroll href="#about"><i class="fa fa-angle-down fa-3x text-white"></i></a></div>
+    </section>
 
     <div>
-      Search by title: <input v-model="titleFilter">
+
+      <ul class="list-inline">
+          <li class="list-inline-item dropdown dropdown-search">
+              <a href="#" data-toggle="dropdown"><i class="fa fa-search"></i>  Search  </a>
+              <div class="dropdown-menu search-dropdown-menu dropdown-menu-left">
+                  <form role="form">
+                      <input v-model="titleFilter" type="text" class="form-control">
+                      <button type="submit" class="btn-nav-search topics"></button>
+                  </form>
+              </div>
+          </li>
+        </ul>
     </div>
+
+
     <div class="container pt90 pb60"> 
       <div class="row masonry-grid">
         <div v-for="post in posts" v-if="isValidPost(post)"class="col-md-6 col-12 masonry-item mb30">
@@ -135,7 +137,7 @@
                   <p>
                     {{ post.body}} 
                   </p>
-                  <a v-bind:href="'/#/posts/' + post.id" class="btn btn-underline">Continue...</a>
+                  <a v-bind:href="'/#/posts/' + post.id" class="btn btn-underline">See More...</a>
               </div><!--/.card-body-->
               <div class="card-bottom">
                 <ul class="list-inline">
@@ -167,6 +169,66 @@
 <template id="signup-page">
   <div class="vue-component">
 
+    <!--page title-->
+    <div class="dzsparallaxer auto-init height-is-based-on-content "  data-options='{   direction: "reverse"}'>
+        <div class="divimage dzsparallaxer--target " style="width: 101%; height: 130%; background-image: url(https://images.unsplash.com/photo-1490041125797-76d80076bf80?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=4e0257ac71eec118c99049d73f20e8aa&auto=format&fit=crop&w=1350&q=80)">
+        </div>
+
+        <div class="container pt100">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto wow bounceIn" data-wow-delay=".2s">
+                    <h3 class="h3 mb30 text-center pt100 pb100 font300 text-white">Sign Up</h3>
+                </div>
+            </div>
+        </div>
+       
+    </div><!--parallax-->
+    <!--/.page-title-->
+      <div class='container pb50  pt50-md'>
+            <div class='row'>
+                <div class='col-md-6 col-lg-5 mr-auto ml-auto'>
+                    <div class='card card-account'>
+                        <div class='card-body'>
+                            <form>
+                                <div class='form-group'>
+                                  <ul>
+                                    <li class="text-danger" v-for="error in errors">{{ error }}</li>
+                                  </ul>
+                                    <label for='username'>Name</label>
+                                    <input id='username' type="text" class="form-control" v-model="name">
+                                </div>
+                                <div class='form-group'>
+                                    <label for='password'>Email</label>
+                                    <input id='password' type="text" class="form-control" v-model="email">
+                                </div>
+                                <div class='form-group'>
+                                    <label for='password'>Avatar URL</label>
+                                    <input id='password' type="text" class="form-control" v-model="avatar">
+                                </div>
+                                <div class='form-group'>
+                                    <label for='password'>Username</label>
+                                    <input id='password' type="text" class="form-control" v-model="username">
+                                </div>
+                                <div class='form-group'>
+                                    <label for='password'>Password</label>
+                                    <input id='password' type="password" class="form-control" v-model="password" placeholder='......'>
+                                </div>
+                                <div class='form-group'>
+                                    <label for='password'>Password confirmation</label>
+                                    <input id='password' type="password" class="form-control" v-model="passwordConfirmation" placeholder='......'>
+                                </div>
+                                <button v-on:click="submit()" type='button' class='btn btn-block btn-secondary btn-rounded'>Sign Up</button>
+                            </form>
+                            <br>
+                            <p class='mb0 text-small'>Already have an account? <a href="/#/login" class='btn btn-underline'>Log In</a></p>
+                            <!-- <p class=' text-small mb0'>Forget your password? <a href='#' class='btn btn-underline'>Recover</a></p> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ <!--        
+
     <div class="container">
       <h1>Signup</h1>
       <ul>
@@ -197,7 +259,7 @@
         <input type="password" class="form-control" v-model="passwordConfirmation">
       </div>
       <button class="btn btn-primary" v-on:click="submit()">Submit</button>
-    </div>
+    </div> -->
 
   </div>
 </template>
@@ -260,17 +322,25 @@
 
     <div class="container pt90 pb60">
         <div class='feature-col mb30'>
+          <ul>
+              <img :src="user.avatar" alt="" class='center-img rounded-circle mb20 shadow20'>
+          </ul>
+          
             <div class='row align-items-center'>
                 <div class='col-md-5 ml-auto'>
-                    <img :src="user.avatar" alt="" class='img-fluid center-img rounded-circle mb20 shadow20'>
+                    
                 </div>
                 <div class='col-md-5 mr-auto pt30-md'>
                     <h4 class='h2 mb0'>{{ user.name }}</h4>
                     <span class='h6 text-muted mb20'>{{ user.username }}</span>
-                     
-                    <div v-for="post in user.posts">
+                    <a v-if="isOwner()"  v-bind:href="'/#/users/' + user.id + '/edit'"> 
+                      <button type="button" class="btn btn-lg btn-rounded btn-outline-secondary mb5" class="row align-items-center">Edit Profile
+                      </button>
+                    </a>
+                  <br><br><br>
+                    <div  v-for="post in user.posts">
                         <h4> {{ post.title }}</h4>
-                            <p> {{ post.mainPicture }}</p>
+                            <img :src="post.main_picture" alt="" class="img-fluid">
                             <p> {{ post.body }}</p>
                             <a v-if="isOwner()" v-bind:href="'/#/posts/' + post.id + '/edit'">
                                <button type="button" class="btn btn-sm btn-rounded btn-outline-secondary mb5">Edit Post
@@ -282,12 +352,7 @@
                         <li class='list-inline-item'><a href="#"><i class="fa fa-twitter"></i></a></li>
                         <li class='list-inline-item'><a href="#"><i class="fa fa-linkedin"></i></a></li>
                         <li class='list-inline-item'><a href="#"><i class="fa fa-instagram"></i></a></li>
-                        <li>
-                          <a v-if="isOwner()"  v-bind:href="'/#/users/' + user.id + '/edit'"> 
-                            <button type="button" class="btn btn-lg btn-rounded btn-outline-secondary mb5" class="row align-items-center">Edit Profile
-                            </button>
-                          </a>
-                        </li>
+                       
                     </ul>
                 </div>
             </div>
@@ -370,7 +435,7 @@
       <h4>Tag Post to Topics:</h4>
       <div v-for="topic in topics">
         <div class="topics">
-          <h6 class="text-italic mb5"> {{ topic.name }}
+          <h6 class="text-italic mb green"> {{ topic.name }}
           <input
             type="checkbox"
             v-model="topicIds"
@@ -380,7 +445,7 @@
       </div>
      <!--  <p> {{ topicIds }} </p> -->
        
-      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+      <button class="btn btn-lg btn-rounded btn-primary mb5" v-on:click="submit()">Submit</button>
     </div>
 
   </div>
@@ -601,8 +666,10 @@
 <template id="post-edit-page">
   <div class="vue-component">
 
-  
-      <h1>Edit this post</h1>
+      <h1>Edit your Post</h1>
+      <h5>
+        <button v-on:click="deletePost()" type="button" class="btn btn-lg btn-rounded btn-outline-danger mb5">Delete Post</button>
+      </h5>
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
@@ -622,9 +689,7 @@
         <label>Link:</label>
         <input type="text" class="form-control" v-model="link">
       </div>
-      <button class="btn btn-primary" v-on:click="submit()">Submit</button> <br>
-      <br>
-      <button v-on:click="deletePost()">Delete Post!</button>
+      <button v-on:click="submit()" type="button" class="btn btn-lg btn-rounded btn-primary mb5">Submit Changes</button>
     
 
   </div>
@@ -636,8 +701,7 @@
 
     <!--page title-->
     <div class="dzsparallaxer auto-init height-is-based-on-content "  data-options='{   direction: "reverse"}'>
-        <div class="divimage dzsparallaxer--target " v-bind:style="{background: 'url('+ topicPicture +')'}">
-                </div>
+        <div class="divimage dzsparallaxer--target " style="width: 101%; height: 130%; background-image: url(https://images.unsplash.com/photo-1488067769412-89fe0bfa6f58?ixlib=rb-0.3.5&s=22ecc51c8d94e0ecad1954a04b0b430a&auto=format&fit=crop&w=334&q=80)"> 
 
         <div class="container pt100 pb70">
             <div class="row pb50">
